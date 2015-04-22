@@ -29,13 +29,13 @@ public class CreateObjUI extends javax.swing.JDialog {
     public static final int RET_OK = 1;
 
     private static String objName;
-    private static AbstractShape object;
+    private static String object;
 
     public static void setObjName(String userName) {
         CreateObjUI.objName = userName;
     }
 
-    public static void setObject(AbstractShape object) {
+    public static void setObject(String object) {
         CreateObjUI.object = object;
     }
 
@@ -43,7 +43,7 @@ public class CreateObjUI extends javax.swing.JDialog {
         return objName;
     }
 
-    public static AbstractShape getObject() {
+    public static String getObject() {
         return object;
     }
 
@@ -172,11 +172,13 @@ public class CreateObjUI extends javax.swing.JDialog {
 
         switch (cBoxObject.getSelectedItem().toString()) {
             case "Circle":
-                setObject(new Circle());
+                setObject(String.format("%s id: %s owner: %s",Circle.class.getName(), objName, AccessAuthClientWS.getUserName()));
+                //setObject(new Circle());
                 doClose(RET_OK);
                 break;
             case "Square":
-                setObject(new Square());
+                setObject(String.format("%s id: %s owner: %s",Square.class.getName(), objName, AccessAuthClientWS.getUserName()));
+                //setObject(new Square());
                 doClose(RET_OK);
                 break;
             default: doClose(RET_CANCEL);
