@@ -19,7 +19,7 @@
     <target name="wsimport-client-AccessAuthWS" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/AccessAuthWS"/>
         <property name="wsdl-AccessAuthWS" location="xml-resources/web-service-references/AccessAuthWS/wsdl/localhost_8080/AccessAuthWS/AccessAuthWS.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/AccessAuthWS" destdir="${build.generated.dir}/jax-wsCache/AccessAuthWS" wsdl="${wsdl-AccessAuthWS}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/AccessAuthWS/AccessAuthWS?wsdl" xnocompile="true" xendorsed="true" package="ws">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/AccessAuthWS" destdir="${build.generated.dir}/jax-wsCache/AccessAuthWS" wsdl="${wsdl-AccessAuthWS}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/AccessAuthWS/AccessAuthWS?wsdl" xnocompile="true" xendorsed="true" package="client">
             <depends file="${wsdl-AccessAuthWS}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/AccessAuthWS"/>
         </wsimport>
@@ -31,7 +31,7 @@
     </target>
     <target name="wsimport-client-clean-AccessAuthWS" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/AccessAuthWS"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/ws"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/client"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-AccessAuthWS"/>
 </project>

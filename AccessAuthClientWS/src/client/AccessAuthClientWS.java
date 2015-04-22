@@ -3,16 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package accessauthclientws;
+package client;
 
 import java.awt.Component;
 import java.awt.Event;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -25,8 +22,8 @@ import static javax.swing.JOptionPane.QUESTION_MESSAGE;
 import static javax.swing.JOptionPane.YES_NO_OPTION;
 import static javax.swing.JOptionPane.YES_OPTION;
 import javax.swing.event.ChangeEvent;
-import ws.AbstractShape;
-import ws.Exception_Exception;
+
+
 
 /**
  *
@@ -35,7 +32,7 @@ import ws.Exception_Exception;
 public class AccessAuthClientWS extends javax.swing.JFrame {
 
     private static final String APP_NAME = "ClientAuth";
-    private static ws.AccessAuthWS stub;
+    private static AccessAuthWS stub;
     private static String session;
     private static String userName;
 
@@ -55,7 +52,7 @@ public class AccessAuthClientWS extends javax.swing.JFrame {
         return AccessAuthClientWS.session;
     }
     
-    public static ws.AccessAuthWS getStub(){
+    public static AccessAuthWS getStub(){
         return stub;
     }
 
@@ -72,22 +69,21 @@ public class AccessAuthClientWS extends javax.swing.JFrame {
     /**
      * Creates new form ClientGUI
      *
-     * @throws java.rmi.NotBoundException
      */
-    public AccessAuthClientWS() throws NotBoundException {
+    public AccessAuthClientWS() {
         initComponents();
         multiAbas.setSelectedIndex(3);
     }
 
-    public void config() throws NotBoundException {
+    public void config() {
 
          try {
             url = new URL("http://" +serverAddress +":" +port +"/" +context +"/AccessAuthWS?wsdl");
         } catch (MalformedURLException ex) {
             Logger.getLogger(AccessAuthClientWS.class.getName()).log(Level.SEVERE, null, ex);
         }
-        ws.AccessAuthWS_Service service = new ws.AccessAuthWS_Service(url);
-        AccessAuthClientWS.stub = service.getAccessAuthWSPort();
+        AccessAuthWS_Service service = new AccessAuthWS_Service(url);
+        stub = service.getAccessAuthWSPort();
     }
 
     public static void setServerAddress(String serverAddress) {
@@ -542,7 +538,7 @@ public class AccessAuthClientWS extends javax.swing.JFrame {
         }
         JOptionPane.showMessageDialog(this,
                 "User " + nameLogin.getText() + " logado com sucesso!");
-        System.out.println("Login realizado com sucesso!");
+        System.out.println("Login realizado com sucesso!\n"+AccessAuthClientWS.session);
         setUserName(nameLogin.getText());
         labelStatusClient.setText("conectado");
         multiAbas.setSelectedIndex(2);
@@ -616,20 +612,11 @@ public class AccessAuthClientWS extends javax.swing.JFrame {
     }//GEN-LAST:event_multiAbasStateChanged
 
     private void buttonConfirmConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmConfigActionPerformed
-        // TODO add your handling code here:
-
-        try {
-            setPort(namePortService.getText());
-            setServerAddress(nameAddressServer.getText());
-            setService(nameServiceRMI.getText());
-            
-            //Configura o Client para acessar o servidor de acordo com as configs
-            config();
-            labelServerConnect.setText(getServerAddress());
-        } catch (NotBoundException ex) {
-            Logger.getLogger(AccessAuthClientWS.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, "No found server RMI...");
-        }
+        setPort(namePortService.getText());
+        setServerAddress(nameAddressServer.getText());
+        setService(nameServiceRMI.getText());
+        config();
+        labelServerConnect.setText(getServerAddress());
     }//GEN-LAST:event_buttonConfirmConfigActionPerformed
 
     private void buttonCreateObjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreateObjectActionPerformed
@@ -744,13 +731,21 @@ public class AccessAuthClientWS extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
                     new AccessAuthClientWS().setVisible(true);
-                } catch (NotBoundException ex) {
+                } catch (NullPointerException ex) {
                     Logger.getLogger(AccessAuthClientWS.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -808,7 +803,8 @@ public class AccessAuthClientWS extends javax.swing.JFrame {
     private void fillListObject() {
         if (isClientLogged()) {
             try {
-                listObjects.setListData(stub.getListObject(session).toArray());
+                String string[] = stub.getListObject(session).split(";");
+                listObjects.setListData(string);
             } catch (Exception_Exception ex) {
                 Logger.getLogger(AccessAuthClientWS.class.getName()).log(Level.SEVERE, null, ex);
             }

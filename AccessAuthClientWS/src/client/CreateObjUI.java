@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package accessauthclientws;
+package client;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -14,9 +14,6 @@ import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import javax.swing.KeyStroke;
-import ws.AbstractShape;
-import ws.Circle;
-import ws.Square;
 
 /**
  *
@@ -31,7 +28,6 @@ public class CreateObjUI extends javax.swing.JDialog {
      */
     public static final int RET_OK = 1;
 
-    private ws.AccessAuthWS stub = AccessAuthClientWS.getStub();
     private static String objName;
     private static AbstractShape object;
 
@@ -167,8 +163,6 @@ public class CreateObjUI extends javax.swing.JDialog {
     private void buttonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOKActionPerformed
         // TODO add your handling code here:
 
-      
-      
         if(nameObjectCreate.getText().trim().isEmpty())
         {
           JOptionPane.showMessageDialog(this, "Informe um nome válido.", APP_NAME, INFORMATION_MESSAGE, null);
@@ -230,6 +224,8 @@ public class CreateObjUI extends javax.swing.JDialog {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(CreateObjUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
